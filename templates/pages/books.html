@@ -22,8 +22,8 @@
                 <div class="row d-flex align-items-stretch">
                   {% for book in books %}
                   <!-- بداية الكتاب -->
-                  <div   class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch ">
-                    <div  id="" class="card bg-light">
+                  <div   class="col-12 col-sm-6 col-md-4 bookhide book{{book.category.id}} book{{book.status}} ">
+                    <div  id="" class="card bg-light ">
                       <div  class="card-header text-muted border-bottom-0">
                         {% if book.category %}
                           {{book.category.name}}
@@ -55,10 +55,10 @@
                       </div>
                       <div class="card-footer">
                         <div class="text-right">
-                          <a href="#" class="btn btn-sm bg-danger">
+                          <a href="{% url 'delete' book.id %}" class="btn btn-sm bg-danger">
                             <i class="fas fa-trash"></i>
                           </a>
-                          <a href="#" class="btn btn-sm btn-primary">
+                          <a href="{% url 'update' book.id %}" class="btn btn-sm btn-primary">
                             <i class="fas fa-book"></i> تعديل
                           </a>
                         </div>

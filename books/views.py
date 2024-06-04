@@ -26,9 +26,19 @@ def index(request):
 
 
 def show(request):
+    search = Book.objects.all()
+    title = None
+    if 'search_name' in request.GET:
+        title = request.GET['search_name']
+        if title:
+            search = search.filter(title__icontains=title)
+            
+
+
+
     context = {
         'categoryform':CategoryForm(),
-        'books':Book.objects.all(),
+        'books':search,
         'category':Category.objects.all(),
     }
     return render(request,'pages/books.html',context)
@@ -48,8 +58,16 @@ def update(request, id):
     return render(request, 'pages/update.html', context)
 
 def delete(request, id):
+    
     book_delete = get_object_or_404(Book, id=id)
     if request.method == 'POST':
         book_delete.delete()
         return redirect('/')
     return render(request, 'pages/delete.html')
+def deletecat(request, id):
+
+    cat_delete = get_object_or_404(Category, id=id)
+    if request.method == 'POST':
+        cat_delete.delete()
+        return redirect('/')
+    return render(request, 'pages/deletecat.html')
