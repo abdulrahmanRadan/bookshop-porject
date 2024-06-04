@@ -17,6 +17,10 @@ def index(request):
         'form':BookForm(),
         'books':Book.objects.all(),
         'category':Category.objects.all(),
+        'allbooks': Book.objects.filter(active=True).count(),
+        'bookssold': Book.objects.filter(status='sold').count(),
+        'booksrental': Book.objects.filter(status='rental').count(),
+        'booksavailable': Book.objects.filter(status='availble').count(),
     }
     return render(request, 'pages/index.html', context)
 
