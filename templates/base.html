@@ -53,6 +53,18 @@
 -->
 
 <script>
+  $("#retalpriceday").keyup(function(){
+    
+    $("#totalrental").val($("#retalpriceday").val() * $("#retalperiod").val())
+  });  
+  $("#retalperiod").keyup(function(){
+    $("#totalrental").val($("#retalpriceday").val() * $("#retalperiod").val())
+
+  });
+
+
+
+  
   $("#catinput").hide()
   x =1
   $("#addcat").click(function(){
