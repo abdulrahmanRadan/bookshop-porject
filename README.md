@@ -16,7 +16,7 @@ To download and run this project, you need to have the following requirements in
 ## How to Download the Project
 1. Clone this repository to your local machine:
     ```bash
-    git clone https://github.com/username/bookshop-project.git
+    git clone https://git@github.com:abdalrahmanRadan/bookshop-porject.git
     ```
 2. Navigate to the project directory:
     ```bash
