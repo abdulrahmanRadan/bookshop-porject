@@ -48,11 +48,13 @@
                     </a>
                   </li> 
               <form id="cat" method="POST">
-             
-                  <input type="text" class="form-control">
+                {% csrf_token %}
+                <div id="catinput" class="text-white">
+                  {{ categoryform }}
+                </div>
 
-                  <button type="submit" class="btn btn-success">save</button>
-                  <button id="backcat" class="btn btn-primary ">back</button>
+                <button type="submit" class="btn btn-success">save</button>
+                <button id="backcat" class="btn btn-primary ">back</button>
               </form>  
               {% for cat in category %}
                 <li style="cursor: pointer;" class="nav-item">
