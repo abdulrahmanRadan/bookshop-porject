@@ -53,6 +53,33 @@
 -->
 
 <script>
+  $(document).ready(function(){
+    var total = 0;
+    var totalprice =0;
+    var totalrental =0;
+
+    <!-- here i will get the total price -->
+    $(".totalprice").each(function(){
+      totalprice += parseInt($(this).text());
+      $(this).hide()
+    });
+    <!-- here i will get the total rental price -->
+    $(".totalrental").each(function(){
+      totalrental += parseInt($(this).text());
+      $(this).hide()
+    });
+
+    total = totalprice + totalrental;
+    $("#totalsalarys").text($("#totalsalarys").text()+total)
+    $("#soldtotals").text(totalprice)
+    $("#rentedtotals").text(totalrental)
+  });
+
+
+
+
+
+
   $("#retalpriceday").keyup(function(){
     
     $("#totalrental").val($("#retalpriceday").val() * $("#retalperiod").val())
@@ -142,14 +169,14 @@ $(function () {
           backgroundColor: '#007bff',
           borderColor    : '#007bff',
           data           : [ 
-               '50',
+              $('#soldtotals').text(),
           ]
         },
         {
           backgroundColor: '#ced4da',
           borderColor    : '#ced4da',
           data           : [ 
-                '30',
+              $("#rentedtotals").text(),
           ]
         }
       ]
