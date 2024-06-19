@@ -1,0 +1,88 @@
+<!-- graph_app/templates/graph_app/graph.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Nouvil</title>
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{% static 'plugins/jquery_datepacker/jquery_ui.css' %}">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte_ar.min.css' %}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+        .content {
+            max-width: 800px;
+            width: 100%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .nav-link {
+            margin-bottom: 20px;
+        }
+        h1, h2, h3, p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container h-auto">
+        <div class="content">
+            <a href="{% url 'index' %}" class="nav-link">Home</a>
+            <h1>Graph</h1>
+            <img src="data:image/png;base64,{{ graph_image }}" alt="Graph">
+            <div 
+                class="flex-lg-row form jumbotron mt-5" 
+                style="
+                    display: grid;
+                    align-content: space-around;
+                    justify-content: space-around;
+                    justify-items: stretch;
+                " >
+                <h2>اختر المدن</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">احسب المسارات</button>
+                </form>
+                
+                {% if path %}
+                    <h3>أقصر مسار بين المدينتين:</h3>
+                    <p>{{ path }}</p>
+                    <h3>طول الطريق:</h3>
+                    <p>{{ path_length }}</p>
+                {% endif %}
+
+                {% if longest_path %}
+                    <h3>أطول مسار بين المدينتين:</h3>
+                    <p>{{ longest_path }}</p>
+                    <h3>طول الطريق:</h3>
+                    <p>{{ longest_path_length }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

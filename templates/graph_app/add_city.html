@@ -1,0 +1,15 @@
+<!-- graph_app/templates/graph_app/add_city.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{%block content %}
+    <div class="alert-default-dark container flex flex-row jumbotron mt-5 p-5 pt-lg-5 w-25">
+        <h1>إضافة مدينة</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="bg-cyan p-2 w-100" type="submit">إضافة</button>
+        </form>
+        <a class="back-link" href="{% url 'graph_view' %}">العودة إلى الرسم البياني</a>
+    </div>
+{% endblock %}

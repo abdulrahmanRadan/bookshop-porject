@@ -1,0 +1,38 @@
+<!-- graph_app/templates/graph_app/add_road.html -->
+
+
+
+{% extends 'base.html' %}
+{% load static %}
+{%block content %}
+    <div class="alert-default-dark container flex flex-row jumbotron mt-5 p-5 pt-lg-5 w-50">
+        <h1 >إضافة طريق بين المدن</h1>
+    <form class="flex " method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="bg-cyan p-2 w-100" type="submit">إضافة</button>
+    </form>
+    <a href="{% url 'graph_view' %}">العودة إلى الرسم البياني</a>
+
+    <script>
+        $(document).ready(function() {
+            $('#id_city1').change(function() {
+                var city1_id = $(this).val();
+                if (city1_id) {
+                    $.ajax({
+                        url: '/ajax/load-cities/',
+                        data: {
+                            'city1_id': city1_id
+                        },
+                        success: function(data) {
+                            $('#id_city2').html(data);
+                        }
+                    });
+                } else {
+                    $('#id_city2').html('<option value="">اختر المدينة الأساسية أولاً</option>');
+                }
+            });
+        });
+    </script>
+    </div>
+{% endblock %}

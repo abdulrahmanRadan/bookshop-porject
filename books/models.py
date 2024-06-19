@@ -22,3 +22,20 @@ class Book(models.Model):
     active = models.BooleanField(default=True)
     status = models.CharField(max_length=50, choices=status_book, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True, blank=True)
+
+class City(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+class Road(models.Model):
+    city1 = models.ForeignKey(City, related_name='city1_roads', on_delete=models.CASCADE)
+    city2 = models.ForeignKey(City, related_name='city2_roads', on_delete=models.CASCADE)
+    distance = models.FloatField()
+
+    def __str__(self):
+        return f"{self.city1} - {self.city2}: {self.distance} km"
+
+    class Meta:
+        unique_together = ('city1', 'city2')

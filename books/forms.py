@@ -1,5 +1,6 @@
 from django import forms
 from .models import Book, Category
+from .models import City
 
 class CategoryForm(forms.ModelForm):
     class Meta:
@@ -11,6 +12,7 @@ class CategoryForm(forms.ModelForm):
         'name': forms.TextInput(attrs = {'class':'form-control '}),
     }
 class BookForm(forms.ModelForm):
+
     class Meta:
         model  = Book
         fields = [
@@ -39,3 +41,24 @@ class BookForm(forms.ModelForm):
             'status': forms.Select(attrs={'class':'form-control'}),
             'category': forms.Select(attrs={'class':'form-control'}),
         }
+
+
+class PathForm(forms.Form):
+    start_city = forms.ModelChoiceField(queryset=City.objects.all(), label="اختر مكان البداية")
+    end_city = forms.ModelChoiceField(queryset=City.objects.all(), label="اختر مكان النهاية")
+
+
+class CityForm(forms.ModelForm):
+    class Meta:
+        model = City
+        fields = ['name']
+
+
+class RoadForm(forms.Form):
+    city1 = forms.ModelChoiceField(queryset=City.objects.all(), label="اختر المدينة الأساسية")
+    city2 = forms.ModelChoiceField(queryset=City.objects.all(), label="اختر المدينة المجاورة")
+    distance = forms.FloatField(label="المسافة")
+
+
+
+
