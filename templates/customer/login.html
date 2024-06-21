@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html  lang="ar">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <title>Nouvil</title>
+    <link rel="stylesheet" href = "{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href = " {% static "plugins/jquery_datepacker/jquery_ui.css" %} ">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href = "http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css ">
+    <!-- Theme style -->
+    <link rel="stylesheet" href = "{% static 'dist/css/adminlte_ar.min.css'%}">
+    <link rel="stylesheet" href = "{% static 'bootstrap/css/bootstrap.css'%}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href = "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  </head>
+  <body class="mt-lg-5 mx-auto w-50" >
+    <div class="callout description-block flex-column mb-3">
+      <h1>Login</h1>
+      {{message}}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="d-block m-lg-1 w-100" type="submit">Login</button>
+            <a  href="{% url 'signup' %}">Dont have Account Create</a>
+        </form>
+    </div>
+  <!-- ./wrapper -->
+
+
+
+<!-- REQUIRED SCRIPTS -->
+<script src="{% static 'plugins/jquery_datepacker/jquery_ui.js'%}"></script>
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js'%}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+<!-- AdminLTE -->
+<script src="{% static 'dist/js/adminlte.js'%}"></script>
+<!-- OPTIONAL SCRIPTS -->
+
+<script src="{% static 'plugins/chart.js/Chart.min.js'%}"></script>
+
+<script src="{% static 'dist/js/demo.js'%}"></script>
+<!--<script src="{% static 'dist/js/pages/dashboard3.js'%}"></script>
+-->
+
+
+
+</body>
+</html>
+

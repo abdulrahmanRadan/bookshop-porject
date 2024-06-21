@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="content-section content-wrapper float-xl w-auto" 
+  style="min-height: 706.002px;align-items: center;f;f;f;
+  display: flex;t;justify-items: center;flex-direction: column;
+  align-content: center;justify-content: center;">
+  {% if messages %} 
+  <ul class="success">
+    <li>{{ success }}</li>
+    
+  </ul>
+{% endif %}
+  <div class=" content"
+    style="
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      ">
+    <img
+      class="rounded-circle account-img w-25"
+      src="{{ user.profile.image.url }}"
+    />
+    <div class="media-body">
+      <h2 class="account-heading">{{ user.username }}</h2>
+      <p class="text-secondary">{{ user.email }}</p>
+    </div>
+  </div>
+  <!-- FORM HERE -->
+  <form method="POST" enctype="multipart/form-data" 
+    style="display: flex;
+      align-items: center;
+      flex-direction: column;
+      ">
+    {% csrf_token %}
+    <fieldset style="display: flex;
+      align-items: center;
+      flex-direction: column;
+      " >
+      <legend class="border-bottom mb-4">Profile Info</legend>
+      <!-- User form -->
+      {% for field in u_form %}
+      {% if field.errors %}
+        
+        <ul class="errorlist">
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {{ field.label_tag }}
+      {{ field }}
+        
+        
+      {% endfor %}
+        <!-- Profile form -->
+      {% for field in p_form %}
+      {% if field.errors %}
+        <ul class="errorlist">
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {{ field.label_tag }} 
+
+      {{ field }}
+        
+      {% endfor %}
+        
+    </fieldset>
+    <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">Update</button>
+    </div>
+  </form>
+</div>
+{% endblock content %}

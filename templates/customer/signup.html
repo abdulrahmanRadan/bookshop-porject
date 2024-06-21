@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html  lang="ar">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <title>Nouvil</title>
+    <link rel="stylesheet" href = "{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href = " {% static "plugins/jquery_datepacker/jquery_ui.css" %} ">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href = "http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css ">
+    <!-- Theme style -->
+    <link rel="stylesheet" href = "{% static 'dist/css/adminlte_ar.min.css'%}">
+    <link rel="stylesheet" href = "{% static 'bootstrap/css/bootstrap.css'%}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href = "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+  <body class="mt-lg-5 mx-auto w-50" >
+    <div class="callout description-block flex-column mb-3 ">
+      <h1>Register</h1>
+      {{error}}
+        <form class="d-inline-block w-25 " method="POST" novalidate >
+            {% csrf_token %}
+            {% for field in form %}
+            <p>
+                {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {{ field.label_tag }} {{ field }}
+            </p>
+            {% endfor %}
+            <button class=" submit d-block m-lg-1 w-100" type="submit">Signup</button>
+            <a  href="{% url 'login' %}">Already have account?</a>
+        </form>
+    </div>
+  <!-- ./wrapper -->
+
+
+
+<!-- REQUIRED SCRIPTS -->
+
+<script>
+    $(document).ready(function(){
+        $(".helptext").hide();
+        if(".submit").click(function(){
+            $(".helptext").show();
+        })
+    });
+</script>
+
+
+</body>
+</html>
+

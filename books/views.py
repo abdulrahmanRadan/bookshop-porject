@@ -8,7 +8,96 @@ import base64
 from .forms import *
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.http import Http404, FileResponse
+from django.contrib.auth import authenticate, login, logout 
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+# Update it here
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+            request.FILES,
+            instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile') # Redirect back to profile page
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'customer/profile.html', context)
+
+
+
+
+# Create your views here.
+
+
+# Home page
+def userindex(request):
+
+    user =''
+    if request.user.is_authenticated:
+        user = authenticate
+    context = {
+        'categoryform':CategoryForm(),
+        'form':BookForm(),
+        'books':Book.objects.filter(status='availble'),
+        'category':Category.objects.all(),
+        'allbooks': Book.objects.filter(active=True).count(),
+        'bookssold': Book.objects.filter(status='sold').count(),
+        'booksrental': Book.objects.filter(status='rental').count(),
+        'booksavailable': Book.objects.filter(status='availble').count(),
+        'user': user,
+    }
+    return render(request, 'customer/index.html',context)
+
+# signup page
+def user_signup(request):
+    error = ""
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+        else:
+            error = ""
+    else:
+        form = SignupForm()
+    return render(request, 'customer/signup.html', {'form': form, 'error':error})
+
+# login page
+def user_login(request):
+    message = ""
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)    
+                return redirect('index')
+            message = "username or password is not successfully"
+    else:
+        form = LoginForm()
+    return render(request, 'customer/login.html', {'form': form, 'message': message})
+
+# logout page
+def user_logout(request):
+    logout(request)
+    return redirect('index')
 # Create your views here.
 def index(request):
     if request.method == 'POST':
@@ -51,7 +140,12 @@ def show(request):
     return render(request,'pages/books.html',context)
 
 def update(request, id):
-    book_id = Book.objects.get(id=id)
+    # book_id = Book.objects.get(id=id)
+    try:
+        book_id = Book.objects.get(id=id)
+    except Book.DoesNotExist:
+        raise Http404("Book does not exist")
+    
     if request.method == 'POST':
         book_save = BookForm(request.POST, request.FILES, instance=book_id)
         if book_save.is_valid():
@@ -166,10 +260,32 @@ def graph_view(request):
         'longest_path': longest_path,
         'longest_path_length': longest_path_length,
     }
-
+    
     return render(request, 'graph_app/graph.html', context)
 
 def load_cities(request):
     city1_id = request.GET.get('city1_id')
     cities = City.objects.exclude(id=city1_id)
     return JsonResponse(render_to_string('graph_app/city_dropdown_list_options.html', {'cities': cities}), safe=False)
+
+def download(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    file_path = book.photo_author.path  # تأكد من أن book.file يحتوي على المسار الصحيح للملف
+
+    try:
+        return FileResponse(open(file_path, 'rb'), content_type='application/pdf')
+    except FileNotFoundError:
+        raise Http404("File does not exist")
+
+def view_pdf(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    file_path = book.photo_author.path  # تأكد من أن book.file يحتوي على المسار الصحيح للملف
+    try:
+        response = FileResponse(open(file_path, 'rb'), content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; filename=' + book.photo_author.name
+        return response
+    except FileNotFoundError:
+        raise Http404("File does not exist")
+
+
+
