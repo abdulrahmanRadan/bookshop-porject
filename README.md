@@ -37,6 +37,23 @@ To download and run this project, you need to have the following requirements in
         ```bash
         source env/bin/activate
         ```
+3.git code 
+       -show branch :
+           ```bash
+            git branch -r
+            ```
+        -Create a local branch that tracks master from the remote:
+            ```bash
+            git checkout -b master origin/master
+            ```
+        -Or if the master branch already exists locally, you can simply navigate to it:
+             ```bash
+            git checkout master
+            ```
+        -Update 'master' branch:
+             ```bash
+            git pull origin master
+            ```
 3. Install the requirements:
     ```bash
     pip install -r requirements.txt
