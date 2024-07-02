@@ -37,7 +37,7 @@ To download and run this project, you need to have the following requirements in
         ```bash
         source env/bin/activate
         ```
-3. git code: 
+3. git code:
        - Show branch:
            ```bash
             git branch -r
