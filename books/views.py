@@ -1,6 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import *
-from .forms import BookForm, CategoryForm
 import matplotlib.pyplot as plt
 import networkx as nx
 import io
@@ -30,6 +29,16 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
+
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        p_form.instance.user = request.user
+        if u_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('index') # Redirect back to profile page
+    
+
 
     context = {
         'u_form': u_form,
@@ -70,6 +79,17 @@ def user_signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
+
+
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                profile = Profile()
+                profile.user = user
+                profile.save()
+
             return redirect('index')
         else:
             error = ""
@@ -286,6 +306,28 @@ def view_pdf(request, book_id):
         return response
     except FileNotFoundError:
         raise Http404("File does not exist")
+
+
+
+
+@login_required
+def admin_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            if user == request.user:
+                login(request, user)
+                return redirect('/myadmin/')
+            else:
+                messages.error(request, 'You can only log in with your own account.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    
+    return render(request, 'admin_login.html')
 
 
 

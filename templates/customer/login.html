@@ -7,35 +7,42 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
   
     <title>Nouvil</title>
-    <link rel="stylesheet" href = "{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href = "{% static '/plugins/fontawesome-free/css/all.min.css' %}">
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href = " {% static "plugins/jquery_datepacker/jquery_ui.css" %} ">
+    {% comment %} <link rel="stylesheet" href = " {% static "/plugins/jquery_datepacker/jquery_ui.css" %} "> {% endcomment %}
     <!-- IonIcons -->
     <link rel="stylesheet" href = "http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css ">
     <!-- Theme style -->
-    <link rel="stylesheet" href = "{% static 'dist/css/adminlte_ar.min.css'%}">
-    <link rel="stylesheet" href = "{% static 'bootstrap/css/bootstrap.css'%}">
+    <link rel="stylesheet" href = "{% static '/dist/css/adminlte_ar.min.css'%}">
+    <link rel="stylesheet" href = "{% static '/bootstrap/css/bootstrap.css'%}">
     <!-- Google Font: Source Sans Pro -->
     <link href = "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   </head>
-  <body class="mt-lg-5 mx-auto w-50" >
-    <div class="callout description-block flex-column mb-3">
-      <h1>Login</h1>
-      {{message}}
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="d-block m-lg-1 w-100" type="submit">Login</button>
-            <a  href="{% url 'signup' %}">Dont have Account Create</a>
-        </form>
-    </div>
+  <body class="mt-lg-5 mx-auto w-50 " >
+    <div class="d-flex flex-column justify-content-center align-content-center">
+      <a href="{% url 'index' %}" class="nav-link active" aria-current="page">Home</a>
+      <div class="callout description-block flex-column mb-3 align-content-center  justify-content-center ">
+        <h1>Login</h1>
+        <p class="text-danger">
+          {{message}}
+        </p>
+          <form class="d-flex flex-column justify-content-center" method="POST">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button class="d-block m-lg-1 btn btn-primary " type="submit">Login</button>
+              <a class="text-primary"  href="{% url 'signup' %}">Dont have Account Create</a>
+          </form>
+      </div>
+  </div>
+>>>>>>> origin/master
   <!-- ./wrapper -->
 
 
 
 <!-- REQUIRED SCRIPTS -->
-<script src="{% static 'plugins/jquery_datepacker/jquery_ui.js'%}"></script>
+
+{% comment %} <script src="{% static 'plugins/jquery_datepacker/jquery_ui.js'%}"></script> {% endcomment %}
 
 <!-- jQuery -->
 <script src="{% static 'plugins/jquery/jquery.min.js'%}"></script>
@@ -48,9 +55,8 @@
 <script src="{% static 'plugins/chart.js/Chart.min.js'%}"></script>
 
 <script src="{% static 'dist/js/demo.js'%}"></script>
-<!--<script src="{% static 'dist/js/pages/dashboard3.js'%}"></script>
--->
 
+{% comment %} <script src="{% static 'dist/js/pages/dashboard3.js'%}"></script> {% endcomment %}
 
 
 </body>

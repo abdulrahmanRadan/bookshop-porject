@@ -1,9 +1,12 @@
 from django.urls import path
 from . import views 
 from django.contrib.auth import views as auth_views
+from django.contrib import admin
+
 
 urlpatterns = [
-
+    # path('admin/', admin.site.urls),
+    path('myadmin/', views.admin_login, name='admin'),
     path('myindex/',views.index, name='myindex'),
     path('',views.userindex, name='index'),
     path('login/', views.user_login, name='login'),
@@ -16,6 +19,9 @@ urlpatterns = [
     path('delete/<int:id>', views.delete, name='delete'),
     path('download/<int:book_id>/', views.download, name='download'),
     path('view-pdf/<int:book_id>/', views.view_pdf, name='view_pdf'),
+
+
+
 
     
     path('deletecat/<int:id>', views.deletecat, name='deletecat'),

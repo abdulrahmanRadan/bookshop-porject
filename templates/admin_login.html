@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <title>Admin Login</title>
+        <link rel="stylesheet" href = "{% static '/plugins/fontawesome-free/css/all.min.css' %}">
+    
+        <!-- Font Awesome Icons -->
+        {% comment %} <link rel="stylesheet" href = " {% static "/plugins/jquery_datepacker/jquery_ui.css" %} "> {% endcomment %}
+        <!-- IonIcons -->
+        <link rel="stylesheet" href = "http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css ">
+        <!-- Theme style -->
+        <link rel="stylesheet" href = "{% static '/dist/css/adminlte_ar.min.css'%}">
+        <link rel="stylesheet" href = "{% static '/bootstrap/css/bootstrap.css'%}">
+        <!-- Google Font: Source Sans Pro -->
+        <link href = "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    </head>
+<body class="mt-lg-5 mx-auto w-50 ">
+    <div class="d-flex flex-column justify-content-center align-content-center">
+        <a href="{% url 'index' %}" class="nav-link active" aria-current="page">Home</a>
+        {% if not user.is_superuser %}
+            <div class="border border-warning bg-light callout description-block flex-column mb-3 align-content-center  justify-content-center ">
+                <svg class="w-4 h-4 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path fill="#d31746" d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/>
+                </svg>
+                    <h2 class="text-danger " >Access Denied</h2>
+                <p class="text-blue text-bold">You do not have permission to access the admin page.</p>
+            </div>
+        {% else %}
+            <div class=" bg-light callout description-block flex-column mb-3 align-content-center  justify-content-center ">
+                <h1 class="text-primary">Admin Login</h1>
+                {% if messages %}
+                {% for message in messages %}
+                    <p class="text-danger">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            <div class=" bg-light callout description-block flex-column mb-3 align-content-center  justify-content-center ">
+                <form class="d-flex flex-column justify-content-center" method="post">
+                    {% csrf_token %}
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required><br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required><br>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        {% endif %}
+    
+    
+</body>
+</html>

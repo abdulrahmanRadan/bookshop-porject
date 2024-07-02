@@ -19,7 +19,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.contrib.auth.decorators import user_passes_test
+
+def admin_check(user):
+    return user.is_superuser
+
+admin.site.login = user_passes_test(admin_check)(admin.site.login)
+
 urlpatterns = [
-    path('myadmin/', admin.site.urls, name='admin'),
+    path('admin/', admin.site.urls, name='admin'),
     path('', include('books.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

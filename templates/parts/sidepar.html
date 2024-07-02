@@ -1,7 +1,8 @@
   <!-- في المكان ده هحط سلايد بار -->
 
   <!-- Main Sidebar Container -->
-  <aside style="position: fixed;" class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside style="position: absolute;" class="main-sidebar sidebar-dark-primary pl-4 elevation-4">
+
     <!-- Brand Logo -->
     <a href="{% url 'index' %}" class="brand-link">
       <span class="brand-text font-weight-light">كتب اليمن </span>
@@ -40,6 +41,14 @@
                   </p>
                 </a>
               </li>
+
+              <li class="nav-item">
+                <a href="{% url 'admin:index' %}" class="nav-link">
+                  <i class="fas fa-tachometer-alt"> </i>
+                  <p> Dashbord</p>
+                </a>
+              </li>
+
 
               <li class="nav-item">
                 <a href="{% url 'add_road' %}" class="nav-link">

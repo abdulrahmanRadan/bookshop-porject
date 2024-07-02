@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'books',
+    # 'books.middleware.admin_restriction_middleware.AdminRestrictionMiddleware',  #   لمنع المستخدمن من تغيير url
 ]
 
 MIDDLEWARE = [
