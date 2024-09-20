@@ -55,9 +55,9 @@
                       </div>
                       <div class="card-footer">
                         <div class="text-right">
-                          <a href="{% url 'delete' book.id %}" class="btn btn-sm bg-danger ">
+                          {% comment %} <a href="{% url 'delete' book.id %}" class="btn btn-sm bg-danger ">
                             <i class="fas fa-trash"></i>
-                          </a>
+                          </a> {% endcomment %}
                           {% with book.photo_author|cut:"" as sliced_author %}
 
                           {% if sliced_author|slice:":8" == "bookfile" %}

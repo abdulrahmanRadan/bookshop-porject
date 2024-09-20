@@ -23,20 +23,18 @@
     <div class="callout description-block flex-column mb-3 ">
     <h1>Register</h1>
     {{error}}
-        <form class="d-inline-block w-25 " method="POST" novalidate >
+        {% comment %} <form class="d-inline-block w-25 " method="POST" novalidate >
             {% csrf_token %}
             {% for field in form %}
             <p>
                 {% if field.errors %}
                 <ul class="errorlist">
-    <a href="{% url 'index' %}" class="nav-link active" aria-current="page">Home</a>
-    <div class="callout description-block flex-column mb-3 ">
-        <h1>Register</h1>
-        {{error}}
+                <a href="{% url 'index' %}" class="nav-link active" aria-current="page">Home</a>
+                <div class="callout description-block flex-column mb-3 ">
+                <h1>Register</h1>
+            {{error}} {% endcomment %}
         <form class="d-inline-block w-100  " method="POST" novalidate enctype="multipart/form-data" >
             {% csrf_token %}
-
-            
 
             {% for field in form %}
             <p>
@@ -50,10 +48,10 @@
                 {{ field.label_tag }} {{ field }}
             </p>
             {% endfor %}
-            <button class=" submit d-block m-lg-1 w-100" type="submit">Signup</button>
+            {% comment %} <button class=" submit d-block m-lg-1 w-100" type="submit">Signup</button> {% endcomment %}
             <a  href="{% url 'login' %}">Already have account?</a>
             <button class="btn btn-primary submit d-block m-lg-1 w-100" type="submit">Signup</button>
-            <a class="text-primary"  href="{% url 'login' %}">Already have account?</a>
+            {% comment %} <a class="text-primary"  href="{% url 'login' %}">Already have account?</a> {% endcomment %}
         </form>
     </div>
 <!-- ./wrapper -->

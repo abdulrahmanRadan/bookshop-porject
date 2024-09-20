@@ -79,8 +79,6 @@ def user_signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
-
-
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(request, username=username, password=password)
@@ -107,7 +105,11 @@ def user_login(request):
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
             if user:
-                login(request, user)    
+                login(request, user)
+                if not hasattr(user, 'profile'):
+                    # Create a new profile if it doesn't exist
+                    profile = Profile(user=user)
+                    profile.save()    
                 return redirect('index')
             message = "username or password is not successfully"
     else:

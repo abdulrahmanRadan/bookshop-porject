@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from PIL import Image
 
 
 class Profile(models.Model):
@@ -10,16 +11,16 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
 
     # Override the save method of the model
-    def save(self):
-        super().save()
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # Ensure you pass args and kwargs
 
-        img = Image.open(self.image.path) # Open image
+        img = Image.open(self.image.path)  # Open image
 
-        # resize image
+        # Resize image if needed
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
-            img.thumbnail(output_size) # Resize image
-            img.save(self.image.path) # Save it again and override the larger image
+            img.thumbnail(output_size)  # Resize image
+            img.save(self.image.path)  # Save it again and override the larger image
 
 
 class Category(models.Model):

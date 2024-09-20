@@ -7,10 +7,9 @@
     <a href="{% url 'index' %}" class="brand-link">
       <span class="brand-text font-weight-light">كتب اليمن </span>
     </a>
-
     <!-- Sidebar -->
-    
     <div class="sidebar">
+      {% if request.user.is_authenticated %}
       <!-- Sidebar user panel (optional) -->
       <div class="flex-column mb-3 mt-3 pb-3 user-panel">
         <div class="meda  ">
@@ -27,6 +26,7 @@
           </a>
         </div>
       </div>
+      {% endif %}
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
